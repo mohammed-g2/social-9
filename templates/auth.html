@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-12 mx-auto mt-5">
+            <form id="login-form" action="{{ url_for('login') }}" method="POST" style="display: none;">
+                {{ login_form.csrf_token }}
+
+                <div id="login-form-feedback" class="text-danger"></div>
+                
+                <div class="form-group">
+                    {{ login_form.username(placeholder="username", class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ login_form.password(placeholder="password", class="form-control") }}
+                </div>
+
+                <div class="custom-control custom-checkbox">
+                    {{ login_form.remember_me(class="custom-control-input") }}
+                    {{ login_form.remember_me.label(class="custom-control-label") }}
+                </div>
+    
+                <input type="submit" value="Login" class="btn btn-secondary btn-block mt-3">
+
+                <small>
+                    <a href="#/register">Create a new account</a>
+                </small>
+            </form>
+    
+            <form id="register-form" action="{{ url_for('register') }}" method="POST" style="display: none;">
+                {{ register_form.csrf_token }}
+
+                <div class="form-group">
+                    {{ login_form.username(placeholder="username", class="form-control") }}
+                    <div id="register-username-feedback" class="invalid-feedback"></div>
+                </div>
+                <div class="form-group">
+                    {{ login_form.password(placeholder="password", class="form-control") }}
+                    <div id="register-password-feedback" class="invalid-feedback"></div>
+                </div>
+    
+                <input type="submit" value="Sign up" class="btn btn-success btn-block">
+
+                <small>
+                    have an account? <a href="#/login">Click here</a>
+                </small>
+            </form>
+    
+            <div id="btn-group">
+                <button class="btn btn-success btn-block" id="register-btn">Sign Up</button>
+                <button class="btn btn-secondary btn-block" id="login-btn">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/form.js', id='njty')}}"></script>
+{% endblock %}

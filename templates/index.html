@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <div id="alerts" class="fixed-alerts"></div>
+    <h1 class="mt-3 mb-4">Chat app</h1>
+    <div class="row">
+        {% if current_user.is_authenticated %}
+        <div class="col-md-6 col-12">
+            <form id="msg-form">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    {{ form.body(rows=6, class="form-control", id="msg-text") }}
+                </div>
+                <input class="btn btn-success btn-block" name="submit" type="submit" value="send">
+            </form>
+        </div>
+        {% endif %}
+
+        <div class="col-md-6 col-12">
+            <div 
+                id="messages" 
+                class="bg-light rounded text-dark pl-3 pt-3" 
+                style="min-height:320px; max-height:320px; overflow:auto;"
+            >
+            {% for message in messages %}
+                <div>{{ message.user.username }}: {{ message.body }}</div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/socket.js') }}"></script>
+{% endblock %}
